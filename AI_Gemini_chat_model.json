@@ -1,0 +1,93 @@
+{
+  "name": "AI gemini chat model",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -16,
+        16
+      ],
+      "id": "f6053fb2-1083-4c58-a9ae-9facb6042e86",
+      "name": "When chat message received",
+      "webhookId": "2c2eb2a5-d851-4e3a-af71-c7d16caebf23"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a Senior QA Engineer.\n\nWhen a user provides a feature or page name, generate:\n\n1. Test Cases\n2. Expected Results\n3. Positive Test Scenarios\n4. Negative Test Scenarios\n5. Edge Cases\n\nFormat the output professionally.\n\nUse test case IDs like:\nTC001\nTC002\nTC003"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        160,
+        16
+      ],
+      "id": "56310c90-ed50-444f-b748-bf1ed2d3ca1c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        32,
+        224
+      ],
+      "id": "72bd6873-1ba4-4b23-bf70-5f7c5f130582",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "2LEA8Je5SqbU9hK8",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "48b5c497-bd88-469b-bac4-81588c83109a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c454ae7a888043d85096de198bdbc147002e74932d6fdb199039ef2a0226e5ff"
+  },
+  "nodeGroups": [],
+  "id": "aanDct1LT5QNilDW",
+  "tags": []
+}
+
